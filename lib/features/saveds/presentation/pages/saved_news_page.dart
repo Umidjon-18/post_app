@@ -1,40 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:post_app/features/public_news/data/models/public_news_model.dart';
-import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
+import 'package:post_app/features/saveds/presentation/bloc/saved_news_bloc/saved_news_bloc.dart';
+import 'package:post_app/features/saveds/presentation/widgets/saved_news_item_card.dart';
 import 'package:post_app/utils/utils.dart';
 
-import '../widgets/public_news_item_card.dart';
+import '../../../public_news/data/models/public_news_model.dart';
 
-class PublicNewsPage extends StatefulWidget {
-  const PublicNewsPage({super.key});
+class SavedNewsPage extends StatefulWidget {
+  const SavedNewsPage({super.key});
 
   @override
-  State<PublicNewsPage> createState() => _PublicNewsPageState();
+  State<SavedNewsPage> createState() => _SavedNewsPageState();
 }
 
-class _PublicNewsPageState extends State<PublicNewsPage> {
+class _SavedNewsPageState extends State<SavedNewsPage> {
   List<PublicNewsModel> tempList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Public News"),
+        title: const Text("Saved News Page"),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          context.read<PublicNewsBloc>().add(GetPublicNewsEvent(
-                newsCount: 50,
-                newsList: tempList,
-              ));
+          context.read<SavedNewsBloc>().add(
+                GetSavedNewsEvent(newsList: tempList),
+              );
         },
-        child: BlocConsumer<PublicNewsBloc, PublicNewsState>(
+        child: BlocConsumer<SavedNewsBloc, SavedNewsState>(
           listener: (context, state) {
             if (state is Loading) {
               context.show();
             } else if (state is Loaded) {
-              context.pop();
+              context.back();
             } else {
               if (state is Error) {
                 state.errorMessage ?? "Something went wrong".showToastWidget();
@@ -43,7 +41,7 @@ class _PublicNewsPageState extends State<PublicNewsPage> {
           },
           builder: (context, state) {
             if (state is Initial) {
-              context.read<PublicNewsBloc>().add(GetPublicNewsEvent(newsCount: 50, newsList: const []));
+              context.read<SavedNewsBloc>().add(GetSavedNewsEvent(newsList: tempList));
               return Container();
             } else if (state is Loading || state is Loaded) {
               tempList = state.newsList;
@@ -52,7 +50,7 @@ class _PublicNewsPageState extends State<PublicNewsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 itemBuilder: (context, index) {
                   var newsItem = state.newsList[index];
-                  return PublicNewsItemCard(newsItem: newsItem);
+                  return SavedNewsItemCard(newsItem: newsItem);
                 },
               );
             } else {

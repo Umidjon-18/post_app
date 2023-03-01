@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
 import 'package:post_app/features/public_news/data/models/public_news_model.dart';
-import 'package:post_app/features/public_news/domain/usecases/delete_public_news_usecase.dart';
 import 'package:post_app/features/public_news/domain/usecases/get_public_news_usecase.dart';
 import 'package:post_app/features/public_news/domain/usecases/save_public_news_usecase.dart';
+
+import '../../../../utils/helpers/log.dart';
 
 part 'public_news_event.dart';
 part 'public_news_state.dart';
 
 class PublicNewsBloc extends Bloc<PublicNewsEvent, PublicNewsState> {
   final GetPublicNewsUseCase getPublicNewsUseCase;
-  final DeletePublicNewsUseCase deletePublicNewsUseCase;
   final SavePublicNewsUseCase savePublicNewsUseCase;
   PublicNewsBloc({
     required this.getPublicNewsUseCase,
-    required this.deletePublicNewsUseCase,
     required this.savePublicNewsUseCase,
   }) : super(Initial()) {
     on<GetPublicNewsEvent>((event, emit) async {
+      log.d("loading");
       emit(Loading(newsList: event.newsList));
       final response = await getPublicNewsUseCase(event.newsCount);
       response.fold(

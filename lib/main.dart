@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:post_app/core/router/go_router.dart';
+import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
 import 'package:post_app/injection_container.dart';
+
+import 'features/saveds/presentation/bloc/saved_news_bloc/saved_news_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,11 +24,16 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => OKToast(
-        child: MaterialApp.router(
-          routerConfig: router,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<PublicNewsBloc>(create: (context) => sl()),
+            BlocProvider<SavedNewsBloc>(create: (context) => sl()),
+          ],
+          child: MaterialApp.router(
+            routerConfig: router,
+            theme: ThemeData(
+              scaffoldBackgroundColor: const Color.fromARGB(255, 6, 29, 48),
+            ),
           ),
         ),
       ),

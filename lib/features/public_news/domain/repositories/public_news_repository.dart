@@ -9,11 +9,4 @@ abstract class PublicNewsRepository {
   Future<void> saveSelectedNews(List<PublicNewsModel> selectedNews);
   Future<void> saveNews(PublicNewsModel newsModel);
 
-  Future<Either<Failure, List<PublicNewsModel>>> deleteNews(
-    PublicNewsModel newsModel,
-  );
-
-  Future<Either<Failure, List<PublicNewsModel>>> deleteSelectedNews(
-    List<PublicNewsModel> selectedNews,
-  );
 }

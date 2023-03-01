@@ -2,7 +2,8 @@
 part of 'public_news_bloc.dart';
 
 abstract class PublicNewsState extends Equatable {
-  const PublicNewsState();
+  List<PublicNewsModel> newsList;
+  PublicNewsState({this.newsList = const[]});
 
   @override
   List<Object> get props => [];
@@ -11,21 +12,17 @@ abstract class PublicNewsState extends Equatable {
 class Initial extends PublicNewsState {}
 
 class Loading extends PublicNewsState {
-  List<PublicNewsModel> newsList = [];
-  Loading({required this.newsList});
-  @override
-  List<Object> get props => [newsList];
+  
+  Loading({List<PublicNewsModel> newsList = const[]}):super(newsList: newsList);
 }
 
 class Loaded extends PublicNewsState {
-  List<PublicNewsModel> newsList;
-  Loaded({required this.newsList});
-  @override
-  List<Object> get props => [newsList];
+  
+  Loaded({List<PublicNewsModel> newsList = const[]}):super(newsList: newsList);
 }
 
 class Error extends PublicNewsState {
   final String? errorMessage;
 
-  const Error(this.errorMessage);
+   Error(this.errorMessage);
 }

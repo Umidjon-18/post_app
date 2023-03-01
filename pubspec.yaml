@@ -33,6 +33,12 @@ dependencies:
   get_it: ^7.2.0
   # State management
   flutter_bloc: ^8.1.2
+  # Caching images from network
+  cached_network_image: ^3.2.3
+  # Date formatting
+  intl: ^0.18.0
+  # Webview
+  webview_flutter: ^4.0.5
 
   
 dev_dependencies:

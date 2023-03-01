@@ -37,16 +37,4 @@ class PublicNewsRepositoryImpl implements PublicNewsRepository {
       PublicNewsParams(selectedModels: selectedNews),
     );
   }
-
-  @override
-  Future<Either<Failure, List<PublicNewsModel>>> deleteNews(PublicNewsModel newsModel) async {
-    return localDataSource.deleteSaved(PublicNewsParams(newsModel: newsModel));
-  }
-
-  @override
-  Future<Either<Failure, List<PublicNewsModel>>> deleteSelectedNews(List<PublicNewsModel> selectedNews) async {
-    return await localDataSource.deleteSelectedSaveds(
-      PublicNewsParams(selectedModels: selectedNews),
-    );
-  }
 }
