@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:post_app/core/local_database/daos/public_news_dao.dart';
+import 'package:post_app/injection_container.dart';
 
-import '../../../public_news/data/models/public_news_model.dart';
-import '../bloc/saved_news_bloc/saved_news_bloc.dart';
+import '../../../../core/local_database/local_database.dart';
 
 class SavedNewsItemCard extends StatefulWidget {
   const SavedNewsItemCard({
@@ -14,7 +14,7 @@ class SavedNewsItemCard extends StatefulWidget {
     required this.newsItem,
   });
 
-  final PublicNewsModel newsItem;
+  final PublicNew newsItem;
 
   @override
   State<SavedNewsItemCard> createState() => _SavedNewsItemCardState();
@@ -22,10 +22,10 @@ class SavedNewsItemCard extends StatefulWidget {
 
 class _SavedNewsItemCardState extends State<SavedNewsItemCard> {
   void delete() {
-    context.read<SavedNewsBloc>().add(DeleteSavedNewsEvent(context, newsModel: widget.newsItem));
+    sl<PublicNewsDao>().deleteNews(widget.newsItem);
   }
 
-  late var date = DateFormat('EEEE, MMMM d, y').format(DateTime.parse(widget.newsItem.date));
+  late var date = DateFormat('EEEE, MMMM d, y').format(DateTime.parse(widget.newsItem.date ?? ""));
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _SavedNewsItemCardState extends State<SavedNewsItemCard> {
                     height: 250,
                     width: double.maxFinite,
                     fit: BoxFit.cover,
-                    imageUrl: widget.newsItem.jetpackFeaturedMediaUrl,
+                    imageUrl: widget.newsItem.jetpackFeaturedMediaUrl ?? "",
                     placeholder: (context, url) => const Center(child: CupertinoActivityIndicator()),
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
@@ -70,7 +70,7 @@ class _SavedNewsItemCardState extends State<SavedNewsItemCard> {
             ),
             const SizedBox(height: 10),
             Text(
-              widget.newsItem.title.rendered,
+              widget.newsItem.title ?? "",
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,

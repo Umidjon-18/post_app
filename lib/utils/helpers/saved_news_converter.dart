@@ -1,15 +1,14 @@
+import 'dart:convert';
 
-  import 'dart:convert';
+import '../../core/local_database/local_database.dart';
 
-import '../../features/public_news/data/models/public_news_model.dart';
-
-List<PublicNewsModel> savedNewsConverter(List<String> data) {
-    List<PublicNewsModel> response = data
-        .map(
-          (item) => PublicNewsModel.fromJson(
-            jsonDecode(item),
-          ),
-        )
-        .toList();
-    return response;
-  }
+List<PublicNew> savedNewsConverter(List<String> data) {
+  List<PublicNew> response = data
+      .map(
+        (item) => PublicNew.fromJson(
+          jsonDecode(item),
+        ),
+      )
+      .toList();
+  return response;
+}

@@ -6,7 +6,6 @@ import 'package:post_app/core/router/go_router.dart';
 import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
 import 'package:post_app/injection_container.dart';
 
-import 'features/saveds/presentation/bloc/saved_news_bloc/saved_news_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,9 +26,9 @@ class MyApp extends StatelessWidget {
         child: MultiBlocProvider(
           providers: [
             BlocProvider<PublicNewsBloc>(create: (context) => sl()),
-            BlocProvider<SavedNewsBloc>(create: (context) => sl()),
           ],
           child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             routerConfig: router,
             theme: ThemeData(
               scaffoldBackgroundColor: const Color.fromARGB(255, 6, 29, 48),

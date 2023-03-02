@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:post_app/core/error/exception.dart';
 import 'package:post_app/core/error/failure.dart';
-import 'package:post_app/features/public_news/data/models/public_news_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../../core/local_database/local_database.dart';
 
 abstract class PublicNewsLocalDataSource {
   Future<void> save(PublicNewsParams params);
@@ -49,8 +50,8 @@ class PublicNewsLocalDataSourceImpl implements PublicNewsLocalDataSource {
 }
 
 class PublicNewsParams {
-  PublicNewsModel? newsModel;
-  List<PublicNewsModel>? selectedModels;
+  PublicNew? newsModel;
+  List<PublicNew>? selectedModels;
   PublicNewsParams({
     this.newsModel,
     this.selectedModels,

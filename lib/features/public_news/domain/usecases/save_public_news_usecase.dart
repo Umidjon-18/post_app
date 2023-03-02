@@ -4,7 +4,7 @@ import 'package:post_app/core/usecase/usecase.dart';
 import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
 import 'package:post_app/features/public_news/domain/repositories/public_news_repository.dart';
 
-import '../../data/models/public_news_model.dart';
+import '../../../../core/local_database/local_database.dart';
 
 class SavePublicNewsUseCase implements UseCase<bool, PublicNewsParams> {
   final PublicNewsRepository publicNewsRepository;
@@ -21,7 +21,7 @@ class SavePublicNewsUseCase implements UseCase<bool, PublicNewsParams> {
   }
 
   Future<Either<Failure, bool>> saveSelectedNews(
-    List<PublicNewsModel> selectedNews,
+    List<PublicNew> selectedNews,
   ) async {
     try {
       publicNewsRepository.saveSelectedNews(selectedNews);

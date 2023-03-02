@@ -1,10 +1,11 @@
+import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:post_app/features/public_news/data/models/public_news_model.dart';
 import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
 import 'package:post_app/utils/utils.dart';
 
+import '../../../../core/local_database/local_database.dart';
 import '../widgets/public_news_item_card.dart';
 
 class PublicNewsPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class PublicNewsPage extends StatefulWidget {
 }
 
 class _PublicNewsPageState extends State<PublicNewsPage> {
-  List<PublicNewsModel> tempList = [];
+  List<PublicNew> tempList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +48,14 @@ class _PublicNewsPageState extends State<PublicNewsPage> {
               return Container();
             } else if (state is Loading || state is Loaded) {
               tempList = state.newsList;
-              return ListView.builder(
-                itemCount: state.newsList.length,
+              return AnimationList(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemBuilder: (context, index) {
-                  var newsItem = state.newsList[index];
-                  return PublicNewsItemCard(newsItem: newsItem);
-                },
+                children: List.generate(
+                  state.newsList.length,
+                  (index) => PublicNewsItemCard(
+                    newsItem: state.newsList[index],
+                  ),
+                ),
               );
             } else {
               return Center(

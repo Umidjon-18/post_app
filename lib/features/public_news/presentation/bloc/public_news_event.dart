@@ -9,7 +9,7 @@ abstract class PublicNewsEvent extends Equatable {
 }
 
 class GetPublicNewsEvent extends PublicNewsEvent {
-  List<PublicNewsModel> newsList;
+  List<PublicNew> newsList;
   int newsCount;
   GetPublicNewsEvent({
     required this.newsCount,
@@ -18,13 +18,13 @@ class GetPublicNewsEvent extends PublicNewsEvent {
 }
 
 class SaveSingleNewsEvent extends PublicNewsEvent {
-  final PublicNewsModel newsModel;
+  final PublicNew newsModel;
   final BuildContext context;
   const SaveSingleNewsEvent(this.context, this.newsModel);
 }
 
 class SaveSelectedNewsEvent extends PublicNewsEvent {
-  final List<PublicNewsModel> selectedNews;
+  final List<PublicNew> selectedNews;
   final BuildContext context;
   const SaveSelectedNewsEvent(this.context, this.selectedNews);
 }

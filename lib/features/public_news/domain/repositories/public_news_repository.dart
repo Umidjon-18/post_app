@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:post_app/core/error/failure.dart';
-import 'package:post_app/features/public_news/data/models/public_news_model.dart';
+
+import '../../../../core/local_database/local_database.dart';
 
 abstract class PublicNewsRepository {
-  Future<Either<Failure, List<PublicNewsModel>>> getPublicNews({
+  Future<Either<Failure, List<PublicNew>>> getPublicNews({
     required int newsCount,
   });
-  Future<void> saveSelectedNews(List<PublicNewsModel> selectedNews);
-  Future<void> saveNews(PublicNewsModel newsModel);
-
+  Future<void> saveSelectedNews(List<PublicNew> selectedNews);
+  Future<void> saveNews(PublicNew newsModel);
 }
