@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_app/features/public_news/presentation/pages/public_news_page.dart';
+import '../../features/public_news/presentation/pages/public_news_page.dart';
 
 import '../../features/saveds/presentation/pages/saveds_page.dart';
 
@@ -11,21 +11,27 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-     int currentIndex = 0;
-    void changePage(int newIndex) {
-      setState(() {
-        currentIndex = newIndex;
-      });
-    }
+  late PageController pageController = PageController(initialPage: 0);
+  int currentIndex = 0;
+  void changePage(int newIndex) {
+    pageController.jumpToPage(newIndex);
+    setState(() {
+      currentIndex = newIndex;
+    });
+  }
 
-    List<Widget> pages = [
-      const PublicNewsPage(),
-      const SavedsPage(),
-    ];
+  List<Widget> pages = [
+    const PublicNewsPage(),
+    const SavedsPage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      body: PageView(
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -33,10 +39,7 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.newspaper),
             label: "News",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.save),
-            label: "Saved"
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.save), label: "Saved"),
         ],
         currentIndex: currentIndex,
         onTap: changePage,

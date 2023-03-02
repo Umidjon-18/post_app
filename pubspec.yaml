@@ -13,48 +13,61 @@ dependencies:
   
   # Http Client
   dio: ^5.0.1
+
   # Value equality
   equatable: ^2.0.5
+
   # Adaptive screen
   flutter_screenutil: ^5.6.1
+
   # Navigation manager
   go_router: ^6.2.0
+
   # Checking network connectivity
   internet_connection_checker: ^1.0.0+1
+
   # Logging data in debug mode
   logger: ^1.2.2
+
   # Showing Toast message
   oktoast: ^3.3.1
+
   # Functional programming
   dartz: ^0.10.1
+
   # Local database
-  shared_preferences: ^2.0.18
+  drift: ^2.5.0
+  sqlite3_flutter_libs: ^0.5.12
+
   # Dependency Injection
   get_it: ^7.2.0
+
   # State management
   flutter_bloc: ^8.1.2
+
   # Caching images from network
   cached_network_image: ^3.2.3
+
   # Date formatting
   intl: ^0.18.0
+
   # Webview
   webview_flutter: ^4.0.5
 
-  ##### Testing new database
-  drift: ^2.5.0
-  sqlite3_flutter_libs: ^0.5.12
+  # Application directory
   path_provider: ^2.0.0
   path: ^1.8.2
+
+  # Animation ListView
   animation_list: ^2.2.1
-  #####
 
   
 dev_dependencies:
   flutter_lints: ^2.0.0
-  ##### Testing new database
+  #
   drift_dev: ^2.5.2
   build_runner: ^2.3.3
-  #####
+  
   flutter_test:
     sdk: flutter
 flutter:

@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:post_app/core/pages/main_page.dart';
-import 'package:post_app/features/public_news/presentation/pages/news_item_page.dart';
+import '../pages/main_page.dart';
+import '../../features/public_news/presentation/pages/news_item_page.dart';
 
 import '../local_database/local_database.dart';
 

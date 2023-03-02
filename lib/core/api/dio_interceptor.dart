@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:post_app/core/api/list_api.dart';
+import 'list_api.dart';
 
 import '../../utils/helpers/log.dart';
 

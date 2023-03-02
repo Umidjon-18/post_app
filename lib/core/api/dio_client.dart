@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:post_app/core/api/dio_interceptor.dart';
-import 'package:post_app/core/error/failure.dart';
+import 'dio_interceptor.dart';
+import '../error/failure.dart';
 
 typedef ConverterFunctionType<T> = T Function(dynamic response);
 

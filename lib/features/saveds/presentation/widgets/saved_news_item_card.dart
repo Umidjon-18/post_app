@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:post_app/core/local_database/daos/public_news_dao.dart';
-import 'package:post_app/injection_container.dart';
+import '../../../../core/local_database/daos/public_news_dao.dart';
+import '../../../../injection_container.dart';
 
 import '../../../../core/local_database/local_database.dart';
 

@@ -1,22 +1,19 @@
 import 'package:drift/drift.dart';
-import 'package:post_app/core/error/failure.dart';
+import '../../../../core/error/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:post_app/core/local_database/daos/public_news_dao.dart';
-import 'package:post_app/core/local_database/local_database.dart';
-import 'package:post_app/core/network/network_info.dart';
-import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
-import 'package:post_app/features/public_news/data/datasources/remote/remotesource.dart';
-import 'package:post_app/features/public_news/domain/repositories/public_news_repository.dart';
+import '../../../../core/local_database/daos/public_news_dao.dart';
+import '../../../../core/local_database/local_database.dart';
+import '../../../../core/network/network_info.dart';
+import '../datasources/remote/remotesource.dart';
+import '../../domain/repositories/public_news_repository.dart';
 
 class PublicNewsRepositoryImpl implements PublicNewsRepository {
   final PublicNewsRemoteDataSource remoteDataSource;
-  final PublicNewsLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
   final PublicNewsDao publicNewsDao;
 
   PublicNewsRepositoryImpl({
     required this.remoteDataSource,
-    required this.localDataSource,
     required this.networkInfo,
     required this.publicNewsDao,
   });

@@ -22,12 +22,16 @@ class $PublicNewsTable extends PublicNews
   @override
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
       'title', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _linkMeta = const VerificationMeta('link');
   @override
   late final GeneratedColumn<String> link = GeneratedColumn<String>(
       'link', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _jetpackFeaturedMediaUrlMeta =
       const VerificationMeta('jetpackFeaturedMediaUrl');
   @override
@@ -78,6 +82,10 @@ class $PublicNewsTable extends PublicNews
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {title, link},
+      ];
   @override
   PublicNew map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -303,13 +311,238 @@ class PublicNewsCompanion extends UpdateCompanion<PublicNew> {
   }
 }
 
+class $WordDefinitionsTable extends WordDefinitions
+    with TableInfo<$WordDefinitionsTable, WordDefinition> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $WordDefinitionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, true,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _wordMeta = const VerificationMeta('word');
+  @override
+  late final GeneratedColumn<String> word = GeneratedColumn<String>(
+      'word', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _definitionMeta =
+      const VerificationMeta('definition');
+  @override
+  late final GeneratedColumn<String> definition = GeneratedColumn<String>(
+      'definition', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, word, definition];
+  @override
+  String get aliasedName => _alias ?? 'word_definitions';
+  @override
+  String get actualTableName => 'word_definitions';
+  @override
+  VerificationContext validateIntegrity(Insertable<WordDefinition> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('word')) {
+      context.handle(
+          _wordMeta, word.isAcceptableOrUnknown(data['word']!, _wordMeta));
+    }
+    if (data.containsKey('definition')) {
+      context.handle(
+          _definitionMeta,
+          definition.isAcceptableOrUnknown(
+              data['definition']!, _definitionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {word},
+      ];
+  @override
+  WordDefinition map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return WordDefinition(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id']),
+      word: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}word']),
+      definition: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}definition']),
+    );
+  }
+
+  @override
+  $WordDefinitionsTable createAlias(String alias) {
+    return $WordDefinitionsTable(attachedDatabase, alias);
+  }
+}
+
+class WordDefinition extends DataClass implements Insertable<WordDefinition> {
+  final int? id;
+  final String? word;
+  final String? definition;
+  const WordDefinition({this.id, this.word, this.definition});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || word != null) {
+      map['word'] = Variable<String>(word);
+    }
+    if (!nullToAbsent || definition != null) {
+      map['definition'] = Variable<String>(definition);
+    }
+    return map;
+  }
+
+  WordDefinitionsCompanion toCompanion(bool nullToAbsent) {
+    return WordDefinitionsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      word: word == null && nullToAbsent ? const Value.absent() : Value(word),
+      definition: definition == null && nullToAbsent
+          ? const Value.absent()
+          : Value(definition),
+    );
+  }
+
+  factory WordDefinition.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return WordDefinition(
+      id: serializer.fromJson<int?>(json['id']),
+      word: serializer.fromJson<String?>(json['word']),
+      definition: serializer.fromJson<String?>(json['definition']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int?>(id),
+      'word': serializer.toJson<String?>(word),
+      'definition': serializer.toJson<String?>(definition),
+    };
+  }
+
+  WordDefinition copyWith(
+          {Value<int?> id = const Value.absent(),
+          Value<String?> word = const Value.absent(),
+          Value<String?> definition = const Value.absent()}) =>
+      WordDefinition(
+        id: id.present ? id.value : this.id,
+        word: word.present ? word.value : this.word,
+        definition: definition.present ? definition.value : this.definition,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('WordDefinition(')
+          ..write('id: $id, ')
+          ..write('word: $word, ')
+          ..write('definition: $definition')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, word, definition);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is WordDefinition &&
+          other.id == this.id &&
+          other.word == this.word &&
+          other.definition == this.definition);
+}
+
+class WordDefinitionsCompanion extends UpdateCompanion<WordDefinition> {
+  final Value<int?> id;
+  final Value<String?> word;
+  final Value<String?> definition;
+  const WordDefinitionsCompanion({
+    this.id = const Value.absent(),
+    this.word = const Value.absent(),
+    this.definition = const Value.absent(),
+  });
+  WordDefinitionsCompanion.insert({
+    this.id = const Value.absent(),
+    this.word = const Value.absent(),
+    this.definition = const Value.absent(),
+  });
+  static Insertable<WordDefinition> custom({
+    Expression<int>? id,
+    Expression<String>? word,
+    Expression<String>? definition,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (word != null) 'word': word,
+      if (definition != null) 'definition': definition,
+    });
+  }
+
+  WordDefinitionsCompanion copyWith(
+      {Value<int?>? id, Value<String?>? word, Value<String?>? definition}) {
+    return WordDefinitionsCompanion(
+      id: id ?? this.id,
+      word: word ?? this.word,
+      definition: definition ?? this.definition,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (word.present) {
+      map['word'] = Variable<String>(word.value);
+    }
+    if (definition.present) {
+      map['definition'] = Variable<String>(definition.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WordDefinitionsCompanion(')
+          ..write('id: $id, ')
+          ..write('word: $word, ')
+          ..write('definition: $definition')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$LocalDatabase extends GeneratedDatabase {
   _$LocalDatabase(QueryExecutor e) : super(e);
   late final $PublicNewsTable publicNews = $PublicNewsTable(this);
+  late final $WordDefinitionsTable wordDefinitions =
+      $WordDefinitionsTable(this);
   late final PublicNewsDao publicNewsDao = PublicNewsDao(this as LocalDatabase);
+  late final WordDefinitionsDao wordDefinitionsDao =
+      WordDefinitionsDao(this as LocalDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [publicNews];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [publicNews, wordDefinitions];
 }

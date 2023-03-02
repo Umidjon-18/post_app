@@ -1,9 +1,10 @@
 import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
-import 'package:post_app/core/local_database/daos/public_news_dao.dart';
-import 'package:post_app/core/local_database/local_database.dart';
-import 'package:post_app/features/public_news/presentation/widgets/saved_news_item_card.dart';
-import 'package:post_app/injection_container.dart';
+import '../../../../core/local_database/daos/public_news_dao.dart';
+import '../../../../core/local_database/local_database.dart';
+import '../../../../injection_container.dart';
+
+import '../../../saveds/presentation/widgets/saved_news_item_card.dart';
 
 
 class SavedNewsPage extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:post_app/core/error/failure.dart';
-import 'package:post_app/core/usecase/usecase.dart';
-import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
-import 'package:post_app/features/public_news/domain/repositories/public_news_repository.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../repositories/public_news_repository.dart';
 
 import '../../../../core/local_database/local_database.dart';
+import 'public_news_params.dart';
 
 class SavePublicNewsUseCase implements UseCase<bool, PublicNewsParams> {
   final PublicNewsRepository publicNewsRepository;

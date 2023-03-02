@@ -2,8 +2,8 @@ import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
-import 'package:post_app/utils/utils.dart';
+import '../bloc/public_news_bloc.dart';
+import '../../../../utils/utils.dart';
 
 import '../../../../core/local_database/local_database.dart';
 import '../widgets/public_news_item_card.dart';

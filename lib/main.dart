@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:post_app/core/router/go_router.dart';
-import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
-import 'package:post_app/injection_container.dart';
+import 'core/router/go_router.dart';
+import 'features/public_news/presentation/bloc/public_news_bloc.dart';
+import 'injection_container.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
+  init();
   runApp(const MyApp());
 }
 

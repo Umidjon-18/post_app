@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
-import 'package:post_app/features/public_news/domain/usecases/get_public_news_usecase.dart';
-import 'package:post_app/features/public_news/domain/usecases/save_public_news_usecase.dart';
+import '../../domain/usecases/get_public_news_usecase.dart';
+import '../../domain/usecases/save_public_news_usecase.dart';
 
 import '../../../../core/local_database/local_database.dart';
 import '../../../../utils/helpers/log.dart';
+import '../../domain/usecases/public_news_params.dart';
 
 part 'public_news_event.dart';
 part 'public_news_state.dart';

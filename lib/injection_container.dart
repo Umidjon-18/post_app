@@ -1,14 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:post_app/core/api/dio_client.dart';
-import 'package:post_app/core/local_database/local_database.dart';
-import 'package:post_app/core/network/network_info.dart';
-import 'package:post_app/features/public_news/data/datasources/local/localsource.dart';
-import 'package:post_app/features/public_news/data/repositories/public_news_repository_impl.dart';
-import 'package:post_app/features/public_news/domain/usecases/get_public_news_usecase.dart';
-import 'package:post_app/features/public_news/domain/usecases/save_public_news_usecase.dart';
-import 'package:post_app/features/public_news/presentation/bloc/public_news_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'core/api/dio_client.dart';
+import 'core/local_database/daos/word_definitions_dao.dart';
+import 'core/local_database/local_database.dart';
+import 'core/network/network_info.dart';
+import 'features/public_news/data/repositories/public_news_repository_impl.dart';
+import 'features/public_news/domain/usecases/get_public_news_usecase.dart';
+import 'features/public_news/domain/usecases/save_public_news_usecase.dart';
+import 'features/public_news/presentation/bloc/public_news_bloc.dart';
 
 import 'core/local_database/daos/public_news_dao.dart';
 import 'features/public_news/data/datasources/remote/remotesource.dart';
@@ -16,8 +15,8 @@ import 'features/public_news/domain/repositories/public_news_repository.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
-  await core();
+void init() {
+  core();
   blocs();
   usecases();
   datasources();
@@ -25,11 +24,9 @@ Future<void> init() async {
   externals();
 }
 
-Future<void> core() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
+core() {
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
-  sl.registerLazySingleton<SharedPreferences>(() => preferences);
   sl.registerLazySingleton(() => DioClient());
 }
 
@@ -49,18 +46,19 @@ void usecases() {
 
 void datasources() {
   // ! Public News
-  sl.registerLazySingleton<PublicNewsLocalDataSource>(() => PublicNewsLocalDataSourceImpl(preferences: sl()));
   sl.registerLazySingleton<PublicNewsRemoteDataSource>(
     () => PublicNewsRemoteDataSourceImpl(dioClient: sl()),
   );
+
+  // ! Word Definition
   sl.registerLazySingleton<PublicNewsDao>(() => LocalDatabase().publicNewsDao);
+  sl.registerLazySingleton<WordDefinitionsDao>(() => LocalDatabase().wordDefinitionsDao);
 }
 
 void repositories() {
   // ! Public News
   sl.registerLazySingleton<PublicNewsRepository>(() => PublicNewsRepositoryImpl(
         remoteDataSource: sl(),
-        localDataSource: sl(),
         networkInfo: sl(),
         publicNewsDao: sl(),
       ));

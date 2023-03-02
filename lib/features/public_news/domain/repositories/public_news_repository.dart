@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:post_app/core/error/failure.dart';
 
+import '../../../../core/error/failure.dart';
 import '../../../../core/local_database/local_database.dart';
 
 abstract class PublicNewsRepository {

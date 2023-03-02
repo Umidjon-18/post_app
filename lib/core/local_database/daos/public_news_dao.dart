@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:post_app/core/local_database/local_database.dart';
+import '../local_database.dart';
 import '../tables/public_news_table.dart';
 
 part 'public_news_dao.g.dart';

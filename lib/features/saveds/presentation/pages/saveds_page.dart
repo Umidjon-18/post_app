@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:post_app/features/public_news/presentation/pages/saved_news_page.dart';
+import '../../../public_news/presentation/pages/saved_news_page.dart';
 
 class SavedsPage extends StatefulWidget {
   const SavedsPage({super.key});
